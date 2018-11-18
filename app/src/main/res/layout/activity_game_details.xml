@@ -38,7 +38,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="@dimen/height_game_detail_app_bar"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay"
         >

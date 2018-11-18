@@ -28,7 +28,7 @@
         android:layout_marginEnd="@dimen/default_space_tiny"
         android:layout_marginStart="@dimen/default_space_tiny"
         android:layout_marginTop="@dimen/default_space_small"
-        app:cardCornerRadius="@dimen/video_item_card_corner_radius"
+        app:cardCornerRadius="@dimen/corner_radius_video_item_card"
         app:cardElevation="@dimen/default_card_elevation_none"
         app:layout_constraintDimensionRatio="w,16:9"
         app:layout_constraintEnd_toEndOf="parent"

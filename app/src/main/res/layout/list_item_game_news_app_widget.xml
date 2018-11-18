@@ -12,8 +12,8 @@
     >
   <ImageView
       android:id="@+id/iv_news_thumb"
-      android:layout_width="@dimen/app_widget_thumb_size"
-      android:layout_height="@dimen/app_widget_thumb_size"
+      android:layout_width="@dimen/size_app_widget_thumb"
+      android:layout_height="@dimen/size_app_widget_thumb"
       android:layout_marginEnd="@dimen/default_space_small"
       android:layout_marginStart="@dimen/default_space_small"
       android:contentDescription="@string/a11y_game_news_thumb"

@@ -84,7 +84,7 @@ public class GameNewsWidgetService extends RemoteViewsService {
 
           Image image = pulse.getPulseImage();
           if (image != null) {
-            int size = context.getResources().getDimensionPixelSize(R.dimen.app_widget_thumb_size);
+            int size = context.getResources().getDimensionPixelSize(R.dimen.size_app_widget_thumb);
 
             String imageUrl = String.format(IMAGE_URL_FORMAT, IMAGE_THUMB, image.getCloudinaryId());
             try {
