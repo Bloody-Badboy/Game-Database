@@ -28,13 +28,13 @@
         android:layout_marginBottom="@dimen/default_space_small"
         android:layout_marginStart="@dimen/default_space_small"
         android:layout_marginTop="@dimen/default_space_small"
+        android:contentDescription="@string/a11y_game_cover"
         android:transitionName="@string/transition_cover"
         app:circleImageUrl="@{String.format(Constants.IMAGE_URL_FORMAT, Constants.COVER_SIZE_SEARCH, game.cover.cloudinaryId)}"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/a11y_game_cover"
         tools:src="@tools:sample/avatars"
         />
     <TextView

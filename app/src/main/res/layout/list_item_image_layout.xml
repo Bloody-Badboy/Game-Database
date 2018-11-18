@@ -41,11 +41,11 @@
           android:id="@+id/iv_screenshot"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:contentDescription="@string/a11y_game_screenshot"
           android:scaleType="centerCrop"
           android:transitionName="@string/transition_screenshot"
           app:imageUrl="@{String.format(Constants.IMAGE_URL_FORMAT, Constants.SCREENSHOT_SIZE_MID, image.cloudinaryId)}"
           tools:srcCompat="@tools:sample/backgrounds/scenic"
-          android:contentDescription="@string/a11y_game_screenshot"
           />
     </androidx.cardview.widget.CardView>
   </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,10 +41,10 @@
           android:id="@+id/iv_news_thumb"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:contentDescription="@string/a11y_game_news_thumb"
           android:scaleType="centerCrop"
           app:imageUrl="@{String.format(Constants.IMAGE_URL_FORMAT, Constants.SCREENSHOT_SIZE_MID, pulse.pulseImage.cloudinaryId)}}"
           tools:srcCompat="@tools:sample/backgrounds/scenic"
-          android:contentDescription="@string/a11y_game_news_thumb"
           />
     </androidx.cardview.widget.CardView>
 
@@ -66,9 +66,9 @@
         android:layout_width="@dimen/default_space_none"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_space_tiny"
+        android:maxLines="1"
         android:text="@{pulse.author}"
         android:textStyle="bold"
-        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_news_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_news_title"

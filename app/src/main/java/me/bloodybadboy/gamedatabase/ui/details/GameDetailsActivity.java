@@ -274,7 +274,8 @@ public class GameDetailsActivity extends AppCompatActivity {
         .setType("text/plain")
         .setChooserTitle(getString(R.string.game_detail_title_share_via))
         .setText(
-            String.format(getString(R.string.game_detail_share_game_content), game.getName(), game.getUrl()))
+            String.format(getString(R.string.game_detail_share_game_content), game.getName(),
+                game.getUrl()))
         .getIntent(), getString(R.string.action_share)));
   }
 }

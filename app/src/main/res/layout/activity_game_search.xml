@@ -55,17 +55,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:alpha="0.87"
+            android:contentDescription="@string/a11y_back_arrow"
             android:tint="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_arrow_back_black_24dp"
             style="@style/SearchViewIcon"
-            android:contentDescription="@string/a11y_back_arrow"
             />
 
         <ImageButton
             android:id="@+id/btn_clear_search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:contentDescription="@string/a11y_clear_search_field"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +74,6 @@
             app:srcCompat="@drawable/ic_close_black_24dp"
             tools:visibility="visible"
             style="@style/SearchViewIcon"
-            android:contentDescription="@string/a11y_clear_search_field"
             />
 
         <View
@@ -133,8 +133,8 @@
         <ImageView
             android:layout_width="@dimen/empty_list_all_icon_size"
             android:layout_height="@dimen/empty_list_all_icon_size"
-            app:srcCompat="@drawable/ic_not_found"
             android:contentDescription="@string/a11y_no_search_results"
+            app:srcCompat="@drawable/ic_not_found"
             />
         <TextView
             android:layout_width="wrap_content"
