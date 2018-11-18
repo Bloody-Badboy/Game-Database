@@ -1,0 +1,71 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryDark">@color/color_primary_dark</item>
+    <item name="colorAccent">@color/color_accent</item>
+
+    <item name="android:fontFamily">@font/amaranth</item>
+    <item name="android:navigationBarColor">@color/indigo_dark</item>
+
+  </style>
+
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
+  <style name="AppTheme.LightNav" parent="AppTheme.NoActionBar">
+    <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    <item name="android:navigationBarColor">@color/white</item>
+  </style>
+
+  <style name="AppTheme.Launcher" parent="AppTheme.LightNav">
+    <item name="android:statusBarColor" tools:targetApi="23">@android:color/white</item>
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    <item name="android:windowBackground">@drawable/launch_window</item>
+  </style>
+
+  <style name="AppTheme.Details" parent="AppTheme.NoActionBar">
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:windowEnterTransition">@transition/details_window_enter_transition</item>
+    <item name="android:windowReturnTransition">@transition/details_window_return_transition</item>
+  </style>
+
+  <style name="AppTheme.Search" parent="AppTheme.NoActionBar">
+
+    <item name="android:statusBarColor" tools:targetApi="23">@android:color/white</item>
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+
+    <item name="android:windowEnterTransition">@transition/search_window_enter_transition</item>
+    <item name="android:windowReturnTransition">@transition/search_window_return_transition</item>
+  </style>
+
+  <style name="AppTheme.PhotoView" parent="AppTheme.NoActionBar">
+    <item name="colorPrimary">@color/grey_900</item>
+    <item name="colorPrimaryDark">@color/grey_900</item>
+    <item name="android:navigationBarColor">@color/grey_900</item>
+  </style>
+
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+  <style name="SearchViewIcon">
+    <item name="android:background">?android:attr/selectableItemBackground</item>
+    <item name="android:paddingLeft">@dimen/default_space_medium</item>
+    <item name="android:paddingRight">@dimen/default_space_medium_small</item>
+    <item name="android:scaleType">center</item>
+    <item name="android:alpha">0.54</item>
+  </style>
+
+  <style name="SectionDivider">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/height_all_divider</item>
+    <item name="android:layout_marginEnd">@dimen/default_space_very_large</item>
+    <item name="android:layout_marginStart">@dimen/default_space_large</item>
+    <item name="android:background">@color/spacer_grey</item>
+  </style>
+
+</resources>

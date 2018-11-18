@@ -1,0 +1,77 @@
+<resources>
+  <string name="app_name">Game Database</string>
+
+
+  <!-- Esrb Ratings-->
+  <string name="esrb_rating_pending">Rating Pending</string>
+  <string name="esrb_early_childhood">Early Childhood</string>
+  <string name="esrb_everyone">Everyone</string>
+  <string name="esrb_everyone_10">Everyone 10+</string>
+  <string name="esrb_teen">Teen</string>
+  <string name="esrb_mature_17">Mature 17+</string>
+  <string name="esrb_adults_only_18">Adults Only 18+</string>
+
+  <!-- Element Transitions -->
+  <string name="transition_cover">transition_cover</string>
+  <string name="transition_game_name">transition_game_name</string>
+  <string name="transition_screenshot">screenshot_transition</string>
+
+  <!-- Error Messages -->
+  <string name="error_msg_no_internet">Couldn\'t connect to the internet. Please check your connection settings and try again.</string>
+  <string name="error_msg_unexpected">We have encountered an unexpected error while fetching data from the server.</string>
+
+  <!-- Menu Titles -->
+  <string name="action_search">Search</string>
+  <string name="action_sort_by">Sort By</string>
+  <string name="action_sort_by_popularity">Popularity</string>
+  <string name="action_sort_by_top_rated">Top Rated</string>
+  <string name="action_sort_by_coming_soon">Coming Soon</string>
+  <string name="action_sort_by_favourites">Favourites</string>
+  <string name="action_share">Share</string>
+
+  <!-- Accessibility -->
+  <string name="a11y_game_cover">Game Cover</string>
+  <string name="a11y_game_rating_bar">Game rating bar</string>
+  <string name="a11y_game_video_thumb">Game video thumbnail</string>
+  <string name="a11y_game_news_thumb">Game news thumbnail</string>
+  <string name="a11y_game_screenshot">Game screenshot</string>
+  <string name="a11y_game_poster">Game Poster</string>
+  <string name="a11y_no_search_results">No search results</string>
+  <string name="a11y_no_games_to_show">No games to show</string>
+  <string name="a11y_game_esrb_rating">Game esrb rating</string>
+  <string name="a11y_back_arrow">Back navigation arrow</string>
+  <string name="a11y_clear_search_field">Clear search field</string>
+
+  <!-- App Widget -->
+  <string name="appwidget_title_game_news">Game News</string>
+
+  <!-- Common -->
+  <string name="all_retry">RETRY</string>
+
+  <!-- Game List-->
+  <string name="game_list_empty_msg">Nothing to show!</string>
+
+  <!-- Game Details -->
+  <string name="game_detail_rating_count">based on %s ratings</string>
+  <string name="game_detail_images_card_title">Images</string>
+  <string name="game_detail_videos_card_title">Videos</string>
+  <string name="game_detail_news_card_title">Latest News</string>
+  <string name="game_detail_developers">Developers</string>
+  <string name="game_detail_publishers">Publishers</string>
+  <string name="game_detail_released_on">Released On</string>
+  <string name="game_detail_no_images">No Images Available!</string>
+  <string name="game_detail_no_videos">No Videos Available!</string>
+  <string name="game_detail_no_news">No News Available!</string>
+  <string name="game_detail_title_share_via">Share via…</string>
+  <string name="game_detail_share_game_content">Checkout this awesome game \'%s\' %s</string>
+  <string name="game_detail_msg_invalid_game_id">Invalid game ID!</string>
+  <string name="game_detail_msg_missing_extra">Required game data missing!</string>
+
+  <!-- Search -->
+  <string name="search_hint_search_game">Search Game…</string>
+  <string name="search_no_results_found">No results found!</string>
+
+  <!--Photo View -->
+  <string name="photo_view_msg_missing_extra">Required data missing!</string>
+
+</resources>

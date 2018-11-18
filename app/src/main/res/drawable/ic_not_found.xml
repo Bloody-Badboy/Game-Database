@@ -1,0 +1,38 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:viewportHeight="176"
+    android:viewportWidth="181"
+    android:width="24dp">
+  <path
+      android:fillColor="#D7DEED"
+      android:pathData="M68.961,111.821l-7,-7l17.677,-17.677l7,7z"/>
+  <path
+      android:fillColor="#C7CFE2"
+      android:pathData="M73.5,93.3c2.1,2.5 4.4,4.8 7,7l6.2,-6.2l-7,-7L73.5,93.3z"/>
+  <path
+      android:fillColor="#D7DEED"
+      android:pathData="M117.2,4.8C88.7,4.8 65.5,28 65.5,56.6s23.2,51.7 51.7,51.7S169,85.1 169,56.6S145.8,4.8 117.2,4.8zM117.2,100.1c-24.1,0 -43.6,-19.5 -43.6,-43.6c0,-24.1 19.5,-43.6 43.6,-43.6c24.1,0 43.6,19.5 43.6,43.6C160.8,80.6 141.3,100.1 117.2,100.1z"/>
+  <path
+      android:fillColor="#707487"
+      android:pathData="M18.4,161.2l-5.8,-5.8c-2.1,-2.1 -2.1,-5.6 0,-7.7l46,-46c2.1,-2.1 5.6,-2.1 7.7,0l5.8,5.8c2.1,2.1 2.1,5.6 0,7.7l-46,46C24,163.3 20.5,163.3 18.4,161.2z"/>
+  <path
+      android:fillColor="#5B5D6E"
+      android:pathData="M18.1,153.1l46,-46c2.1,-2.1 5.6,-2.1 7.7,0l0.3,0.3c0,0 0,0 0,0l-5.8,-5.8c-2.1,-2.1 -5.6,-2.1 -7.7,0l-46,46c-2.1,2.1 -2.1,5.6 0,7.7l5.4,5.4C16,158.7 16,155.3 18.1,153.1z"/>
+  <path
+      android:fillColor="#C7CFE2"
+      android:pathData="M68.7,118.6l3.4,-3.4c2.1,-2.1 2.1,-5.6 0,-7.7l-5.8,-5.8c-2.1,-2.1 -5.6,-2.1 -7.7,0l-3.4,3.4L68.7,118.6z"/>
+  <path
+      android:fillAlpha="0.97"
+      android:fillColor="#AFB9D2"
+      android:pathData="M60.7,110.5l3.4,-3.4c2.1,-2.1 5.6,-2.1 7.7,0l0.3,0.3c0,0 0,0 0,0l-5.8,-5.8c-2.1,-2.1 -5.6,-2.1 -7.7,0l-3.4,3.4L60.7,110.5z"
+      android:strokeAlpha="0.97"/>
+  <path
+      android:fillColor="#707487"
+      android:pathData="M101.2,40m-6.9,0a6.9,6.9 0,1 1,13.8 0a6.9,6.9 0,1 1,-13.8 0"/>
+  <path
+      android:fillColor="#707487"
+      android:pathData="M133.9,40m-6.9,0a6.9,6.9 0,1 1,13.8 0a6.9,6.9 0,1 1,-13.8 0"/>
+  <path
+      android:fillColor="#707487"
+      android:pathData="M96.7,78.8c-0.3,0 -0.6,-0.1 -0.8,-0.2c-0.8,-0.5 -1,-1.5 -0.5,-2.2c4.6,-7.5 12.6,-11.9 21.4,-11.9c8.7,0 16.6,4.4 21.2,11.7c0.5,0.8 0.3,1.8 -0.5,2.2c-0.8,0.5 -1.8,0.3 -2.2,-0.5c-4,-6.4 -11,-10.2 -18.5,-10.2c-7.7,0 -14.6,3.9 -18.7,10.4C97.8,78.5 97.3,78.8 96.7,78.8z"/>
+</vector>

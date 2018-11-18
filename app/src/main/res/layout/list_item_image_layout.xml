@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedAttribute"
+    >
+  <data>
+
+    <import type="me.bloodybadboy.gamedatabase.Constants"/>
+
+    <variable
+        name="image"
+        type="me.bloodybadboy.gamedatabase.data.model.Image"
+        />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:foreground="?attr/selectableItemBackground"
+      tools:targetApi="m"
+      >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/default_space_none"
+        android:layout_height="@dimen/height_game_image_list_item"
+        android:layout_marginBottom="@dimen/default_space_small"
+        android:layout_marginEnd="@dimen/default_space_tiny"
+        android:layout_marginStart="@dimen/default_space_tiny"
+        android:layout_marginTop="@dimen/default_space_small"
+        app:cardCornerRadius="@dimen/default_card_corner_radius"
+        app:cardElevation="@dimen/default_card_elevation_none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+      <ImageView
+          android:id="@+id/iv_screenshot"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scaleType="centerCrop"
+          android:transitionName="@string/transition_screenshot"
+          app:imageUrl="@{String.format(Constants.IMAGE_URL_FORMAT, Constants.SCREENSHOT_SIZE_MID, image.cloudinaryId)}"
+          tools:srcCompat="@tools:sample/backgrounds/scenic"
+          android:contentDescription="@string/a11y_game_screenshot"
+          />
+    </androidx.cardview.widget.CardView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

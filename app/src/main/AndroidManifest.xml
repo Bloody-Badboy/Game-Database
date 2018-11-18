@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="me.bloodybadboy.gamedatabase">
+
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+  <application
+      android:name=".GameDatabaseApplication"
+      android:allowBackup="true"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme"
+      tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+    <activity
+        android:name=".ui.LauncherActivity"
+        android:theme="@style/AppTheme.Launcher">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity
+        android:name=".ui.games.GameListActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+    </activity>
+    <activity
+        android:name=".ui.details.GameDetailsActivity"
+        android:theme="@style/AppTheme.Details">
+    </activity>
+    <activity
+        android:name=".ui.search.GameSearchActivity"
+        android:theme="@style/AppTheme.Search">
+    </activity>
+
+    <activity
+        android:name=".ui.PhotoViewActivity"
+        android:theme="@style/AppTheme.PhotoView">
+    </activity>
+
+    <service
+        android:name=".sync.JobSchedulerService"
+        android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <meta-data
+        android:name="preloaded_fonts"
+        android:resource="@array/preloaded_fonts"/>
+    <service
+        android:name=".widget.GameNewsWidgetService"
+        android:permission="android.permission.BIND_REMOTEVIEWS"/>
+    <receiver android:name=".widget.GameNewsAppWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+      <meta-data
+          android:name="android.appwidget.provider"
+          android:resource="@xml/game_news_app_widget_info"/>
+    </receiver>
+  </application>
+
+</manifest>

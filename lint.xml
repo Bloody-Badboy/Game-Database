@@ -1,0 +1,7 @@
+<lint>
+  <issue id="ObsoleteSdkInt" severity="error"/>
+  <issue id="UnusedResources" severity="error"/>
+  <issue id="OldTargetApi" severity="ignore"/>
+  <!-- No one cares. -->
+  <issue id="GoogleAppIndexingWarning" severity="ignore"/>
+</lint>

@@ -1,0 +1,87 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <import type="android.view.View"/>
+    <variable
+        name="viewModel"
+        type="me.bloodybadboy.gamedatabase.ui.games.GameListViewModel"
+        />
+  </data>
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/coordinator_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+          app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+          app:title="@string/app_name"
+          />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recycler_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clipToPadding="false"
+          android:layoutAnimation="@anim/layout_animation_from_bottom"
+          android:overScrollMode="never"
+          android:scrollbarStyle="outsideOverlay"
+          android:visibility="@{viewModel.showProgress ? View.GONE : (viewModel.emptyGameList ? View.GONE : View.VISIBLE)}"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:itemCount="8"
+          tools:listitem="@layout/list_item_game_layout"
+          />
+
+      <ProgressBar
+          android:id="@+id/progressBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:visibility="@{viewModel.showProgress ? View.VISIBLE : View.GONE}"
+          />
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:orientation="vertical"
+          android:visibility="@{viewModel.emptyGameList ? View.VISIBLE : View.GONE}"
+          tools:ignore="UseCompoundDrawables"
+          >
+
+        <ImageView
+            android:layout_width="@dimen/empty_list_all_icon_size"
+            android:layout_height="@dimen/empty_list_all_icon_size"
+            android:contentDescription="@string/a11y_no_games_to_show"
+            app:srcCompat="@drawable/ic_sad_face"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_space_small"
+            android:text="@string/game_list_empty_msg"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            />
+      </LinearLayout>
+    </FrameLayout>
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

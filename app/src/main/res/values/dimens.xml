@@ -1,0 +1,45 @@
+<resources>
+  <dimen name="app_bar_height">200dp</dimen>
+
+  <dimen name="widget_margin">8dp</dimen>
+
+  <dimen name="app_widget_thumb_size">56dp</dimen>
+
+  <dimen name="default_space_none">0dp</dimen>
+  <!--<dimen name="default_space_micro">2dp</dimen>-->
+  <dimen name="default_space_tiny">4dp</dimen>
+  <dimen name="default_space_small">8dp</dimen>
+  <dimen name="default_space_medium_small">12dp</dimen>
+  <dimen name="default_space">16dp</dimen>
+  <dimen name="default_space_medium">20dp</dimen>
+  <dimen name="default_space_large">24dp</dimen>
+  <dimen name="default_space_very_large">32dp</dimen>
+  <dimen name="default_space_huge">64dp</dimen>
+
+  <dimen name="default_card_corner_radius">4dp</dimen>
+  <dimen name="default_card_corner_radius_small">2dp</dimen>
+  <dimen name="default_card_elevation_none">0dp</dimen>
+  <dimen name="default_card_elevation">1dp</dimen>
+  <dimen name="default_fab_elevation">6dp</dimen>
+
+  <dimen name="height_all_divider">1dp</dimen>
+
+  <dimen name="empty_list_all_icon_size">100dp</dimen>
+
+  <dimen name="height_game_detail_card_item">160dp</dimen>
+  <dimen name="video_item_card_corner_radius">4dp</dimen>
+  <dimen name="game_item_card_corner_radius">2dp</dimen>
+  <dimen name="size_all_progress_bar_med">24dp</dimen>
+  <dimen name="height_game_detail_cover">200dp</dimen>
+  <dimen name="height_app_widget_top_bar">48dp</dimen>
+  <dimen name="height_game_list_item">180dp</dimen>
+  <dimen name="height_app_widget_list_item">64dp</dimen>
+  <dimen name="textsize_app_widget_list_title">14sp</dimen>
+  <dimen name="textsize_app_widget_list_date">12sp</dimen>
+  <dimen name="height_game_news_list_item">160dp</dimen>
+  <dimen name="height_game_image_list_item">140dp</dimen>
+  <dimen name="height_search_list_item">72dp</dimen>
+  <dimen name="textsize_search_field">16sp</dimen>
+
+
+</resources>

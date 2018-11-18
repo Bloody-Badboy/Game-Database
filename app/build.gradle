@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+
+android {
+
+  signingConfigs {
+    release {
+      keyAlias 'android'
+      keyPassword 's3cret'
+      storeFile rootProject.file('keystore.jks')
+      storePassword 's3cret'
+    }
+  }
+
+  compileSdkVersion 28
+
+  defaultConfig {
+    applicationId "me.bloodybadboy.gamedatabase"
+    minSdkVersion 21
+    targetSdkVersion 28
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.release
+    }
+  }
+
+  buildTypes.each {
+    it.resValue('string', "igdb_api_key", propOrThrow('IGDB_API_KEY'))
+  }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+    lintConfig rootProject.file('lint.xml')
+
+    checkDependencies true
+    checkTestSources true
+    explainIssues false
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  dataBinding {
+    enabled true
+  }
+}
+
+dependencies {
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
+  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'com.google.android.material:material:1.0.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+
+  // Lifecycle
+  implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+  implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
+
+  // Room
+  implementation 'androidx.room:room-runtime:2.0.0'
+  annotationProcessor "androidx.room:room-compiler:2.0.0"
+
+  // Retrofit
+  implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+  implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+
+  // Glide
+  implementation 'com.github.bumptech.glide:glide:4.8.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+  // PhotoView
+  implementation 'com.github.chrisbanes:PhotoView:2.2.0'
+
+  // Timber
+  implementation 'com.jakewharton.timber:timber:4.7.1'
+
+  // Stetho
+  implementation 'com.facebook.stetho:stetho:1.5.0'
+  implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+  // RecycleView Snap Helper
+  implementation 'com.github.rubensousa:gravitysnaphelper:1.5'
+
+  // Chrome Custom Tab
+  implementation 'saschpe.android:customtabs:2.0.0'
+
+  // Leak Canary
+  debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+  releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
+
+  // Logging Interceptor
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}

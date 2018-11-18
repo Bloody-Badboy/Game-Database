@@ -1,0 +1,151 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <import type="android.view.View"/>
+    <variable
+        name="viewModel"
+        type="me.bloodybadboy.gamedatabase.ui.search.GameSearchViewModel"
+        />
+  </data>
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/coordinator_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/searchContainer"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="@android:color/white"
+          >
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/default_space_none"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/default_space_small"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/search_hint_search_game"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/grey_800"
+            android:textColorHint="@color/grey_600"
+            android:textSize="@dimen/textsize_search_field"
+            app:layout_constraintEnd_toStartOf="@+id/progressBar2"
+            app:layout_constraintStart_toEndOf="@id/btn_back_arrow"
+            tools:targetApi="o"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:alpha="0.87"
+            android:tint="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+            style="@style/SearchViewIcon"
+            android:contentDescription="@string/a11y_back_arrow"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_clear_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close_black_24dp"
+            tools:visibility="visible"
+            style="@style/SearchViewIcon"
+            android:contentDescription="@string/a11y_clear_search_field"
+            />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_all_divider"
+            android:background="@color/spacer_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_space_small"
+            android:maxHeight="@dimen/size_all_progress_bar_med"
+            android:maxWidth="@dimen/size_all_progress_bar_med"
+            android:minHeight="@dimen/size_all_progress_bar_med"
+            android:minWidth="@dimen/size_all_progress_bar_med"
+            android:visibility="@{viewModel.loading ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toStartOf="@+id/btn_clear_search"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.AppCompat.ProgressBar"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recycler_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:clipToPadding="false"
+          android:overScrollMode="never"
+          android:scrollbarStyle="outsideOverlay"
+          android:visibility="@{viewModel.noResultsFound ? View.GONE : View.VISIBLE}"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:itemCount="8"
+          tools:listitem="@layout/list_item_search_game_layout"
+          />
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:orientation="vertical"
+          android:visibility="@{viewModel.noResultsFound ? View.VISIBLE : View.GONE}"
+          tools:ignore="UseCompoundDrawables"
+          >
+
+        <ImageView
+            android:layout_width="@dimen/empty_list_all_icon_size"
+            android:layout_height="@dimen/empty_list_all_icon_size"
+            app:srcCompat="@drawable/ic_not_found"
+            android:contentDescription="@string/a11y_no_search_results"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_space_small"
+            android:text="@string/search_no_results_found"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            />
+      </LinearLayout>
+    </FrameLayout>
+
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

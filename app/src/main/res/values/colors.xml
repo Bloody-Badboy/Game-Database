@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="indigo">#4768fd</color>
+  <color name="indigo_dark">#3c54fe</color>
+  <color name="white">#fff</color>
+  <color name="grey_50">#fffafafa</color>
+  <color name="grey_800">#424242</color>
+  <color name="grey_900">#212121</color>
+  <color name="grey_600">#747474</color>
+  <color name="spacer_grey">#e0e0e0</color>
+  <color name="white_90">#e6ffffff</color>
+
+  <color name="color_primary">@color/indigo</color>
+  <color name="color_primary_dark">@color/indigo_dark</color>
+  <color name="color_accent">@color/indigo</color>
+</resources>

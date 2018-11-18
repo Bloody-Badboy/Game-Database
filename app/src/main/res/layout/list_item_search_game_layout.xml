@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <import type="me.bloodybadboy.gamedatabase.Constants"/>
+
+    <import type="me.bloodybadboy.gamedatabase.utils.Utils"/>
+
+    <variable
+        name="game"
+        type="me.bloodybadboy.gamedatabase.data.model.Game"
+        />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_search_list_item"
+      android:foreground="?attr/selectableItemBackground"
+      >
+
+    <ImageView
+        android:id="@+id/iv_game_cover"
+        android:layout_width="@dimen/default_space_none"
+        android:layout_height="@dimen/default_space_none"
+        android:layout_marginBottom="@dimen/default_space_small"
+        android:layout_marginStart="@dimen/default_space_small"
+        android:layout_marginTop="@dimen/default_space_small"
+        android:transitionName="@string/transition_cover"
+        app:circleImageUrl="@{String.format(Constants.IMAGE_URL_FORMAT, Constants.COVER_SIZE_SEARCH, game.cover.cloudinaryId)}"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/a11y_game_cover"
+        tools:src="@tools:sample/avatars"
+        />
+    <TextView
+        android:id="@+id/tv_game_name"
+        android:layout_width="@dimen/default_space_none"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_space_small"
+        android:layout_marginEnd="@dimen/default_space_small"
+        android:layout_marginStart="@dimen/default_space_small"
+        android:layout_marginTop="@dimen/default_space_small"
+        android:maxLines="2"
+        android:text="@{game.name}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/grey_800"
+        android:transitionName="@string/transition_game_name"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game_cover"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@sample/game_names"
+        />
+    <View
+        android:id="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/SectionDivider"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
