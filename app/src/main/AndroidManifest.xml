@@ -11,8 +11,8 @@
       android:name=".GameDatabaseApplication"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
-      android:roundIcon="@mipmap/ic_launcher_round"
       android:label="@string/app_name"
+      android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning">
@@ -46,12 +46,11 @@
     <service
         android:name=".sync.JobSchedulerService"
         android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <meta-data
-        android:name="preloaded_fonts"
-        android:resource="@array/preloaded_fonts"/>
+
     <service
         android:name=".widget.GameNewsWidgetService"
         android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
     <receiver android:name=".widget.GameNewsAppWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -60,6 +59,15 @@
           android:name="android.appwidget.provider"
           android:resource="@xml/game_news_app_widget_info"/>
     </receiver>
+
+    <meta-data
+        android:name="preloaded_fonts"
+        android:resource="@array/preloaded_fonts"/>
+
+    <meta-data
+        android:name="firebase_crashlytics_collection_enabled"
+        android:value="${crashlyticsEnabled}"/>
+
   </application>
 
 </manifest>

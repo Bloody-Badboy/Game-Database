@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "351048741536",
+    "firebase_url": "https://game-database-app.firebaseio.com",
+    "project_id": "game-database-app",
+    "storage_bucket": "game-database-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351048741536:android:72c50775b86e07a1",
+        "android_client_info": {
+          "package_name": "me.bloodybadboy.gamedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351048741536-ji9b3t7q2usnh2mt35j842rfr1e2q8cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0ZwLf8MvIs5jkswEjauPi-3GVGc7WPMY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
