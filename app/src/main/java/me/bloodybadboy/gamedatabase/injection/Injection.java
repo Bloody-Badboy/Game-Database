@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import timber.log.Timber;
 
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BASIC;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS;
 import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
 
 @SuppressWarnings("WeakerAccess") public final class Injection {
@@ -50,7 +50,7 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level.NONE;
               .addNetworkInterceptor(new IGDBInterceptor(Injection.provideUserKey()))
               .addNetworkInterceptor(new StethoInterceptor())
               .addNetworkInterceptor(new HttpLoggingInterceptor(
-                  message -> Timber.d(message)).setLevel(BuildConfig.DEBUG ? NONE : BASIC))
+                  message -> Timber.d(message)).setLevel(BuildConfig.DEBUG ? HEADERS : NONE))
               .build();
         }
       }
