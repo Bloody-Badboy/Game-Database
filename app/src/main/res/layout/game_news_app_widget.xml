@@ -6,6 +6,7 @@
     android:background="@color/grey_50"
     android:orientation="vertical"
     tools:layoutDirection="ltr"
+    tools:ignore="Overdraw"
     >
   <FrameLayout
       android:layout_width="match_parent"
