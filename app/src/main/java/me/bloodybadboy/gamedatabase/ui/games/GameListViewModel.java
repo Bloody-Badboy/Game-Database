@@ -1,9 +1,11 @@
 package me.bloodybadboy.gamedatabase.ui.games;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import java.util.ArrayList;
 import java.util.List;
 import me.bloodybadboy.gamedatabase.Constants;
@@ -23,29 +25,38 @@ public class GameListViewModel extends ViewModel {
   public final LiveData<Boolean> showProgress;
   public final LiveData<Boolean> emptyGameList;
 
-  final LiveData<Result<List<Game>>> gameListResult;
+  final LiveData<List<Object>> objectListResult;
   final LiveData<Boolean> gameListLoading;
   final LiveData<Event<Boolean>> swapGameList;
   final LiveData<GameListFilterType> listFilterType;
-  final MutableLiveData<Event<String>> showRetrySnackBarEvent;
+  final LiveData<Event<Exception>> exceptionEvent;
+  final LiveData<Event<String>> showRetrySnackBarEvent;
+  final LiveData<Event<Object>> loadMoreNativeAds;
 
   private final MutableLiveData<GameListFilterType> _listFilterType = new MutableLiveData<>();
   private final MutableLiveData<Result<List<Game>>> _gameListResult = new MutableLiveData<>();
+  private final MutableLiveData<Result<List<Object>>> _objectListResult = new MutableLiveData<>();
   private final MutableLiveData<Event<Boolean>> _swapGameList = new MutableLiveData<>();
   private final MutableLiveData<Boolean> _showProgress = new MutableLiveData<>();
   private final MutableLiveData<Boolean> _emptyGameList = new MutableLiveData<>();
+  private final MutableLiveData<Event<Exception>> _exceptionEvent = new MutableLiveData<>();
   private final MutableLiveData<Event<String>> _showRetrySnackBarEvent = new MutableLiveData<>();
+  private final MutableLiveData<Event<Object>> _loadMoreNativeAds = new MutableLiveData<>();
 
-  private final List<Game> games = new ArrayList<>();
+  private final List<Object> items = new ArrayList<>();
+  private final List<UnifiedNativeAd> nativeAds = new ArrayList<>();
+
+  private AbstractGetGameListUseCase currentGameListUseCase;
   private final GetPopularGameListUseCase popularGameListUseCase;
   private final GetTopRatedGameListUseCase topRatedGameListUseCase;
   private final GetComingSoonGameListUseCase comingSoonGameListUseCase;
   private final GetFavouriteGameListUseCase favouriteGameListUseCase;
+
   private GameListFilterType gameListFilterType = GameListFilterType.POPULARITY;
   private boolean isFilterTypeChanged;
   private int paginationOffset = 0;
   private boolean isProgressBarShown;
-  private AbstractGetGameListUseCase currentGameListUseCase;
+  private int currentNativeAdIndex = 0;
 
   public GameListViewModel(
       GetPopularGameListUseCase popularGameListUseCase,
@@ -62,32 +73,62 @@ public class GameListViewModel extends ViewModel {
     emptyGameList = _emptyGameList;
     listFilterType = _listFilterType;
     swapGameList = _swapGameList;
+    exceptionEvent = _exceptionEvent;
     showRetrySnackBarEvent = _showRetrySnackBarEvent;
+    loadMoreNativeAds = _loadMoreNativeAds;
 
     _listFilterType.setValue(gameListFilterType);
 
     gameListLoading = Transformations.map(_gameListResult, Result::loading);
-    gameListResult = Transformations.map(_gameListResult, input -> {
-      if (input.loading()) {
-        return Result.Loading();
-      } else if (input.succeeded()) {
-        if (isFilterTypeChanged) {
-          isFilterTypeChanged = false;
-          games.clear();
-        }
-        games.addAll(input.data);
-        hideProgressBar();
-        if (games.size() > 0) {
-          _emptyGameList.setValue(false);
+
+    final MediatorLiveData<List<Object>> result = new MediatorLiveData<>();
+    result.addSource(_gameListResult, input -> {
+      if (!input.loading()) {
+        if (input.succeeded()) {
+          if (isFilterTypeChanged) {
+            isFilterTypeChanged = false;
+            items.clear();
+          }
+          items.addAll(input.data);
+          hideProgressBar();
+          if (items.size() > 0) {
+            _emptyGameList.setValue(false);
+          } else {
+            _emptyGameList.setValue(true);
+          }
+
+          if (gameListFilterType != GameListFilterType.FAVOURITES) {
+            // Insert a native ad after each 40 items (if available)
+            int nativeAdsSize = nativeAds.size();
+            if (paginationOffset % 4 == 0) {
+              if (nativeAdsSize > 0) {
+                items.add(nativeAds.get(currentNativeAdIndex));
+                currentNativeAdIndex++;
+
+                Timber.d("Inserted UnifiedNativeAd in the list.");
+
+                if (currentNativeAdIndex >= nativeAdsSize) {
+                  currentNativeAdIndex = 0;
+                  _loadMoreNativeAds.setValue(new Event<>(new Object()));
+                }
+              }
+            }
+          }
+
+          result.setValue(items);
         } else {
-          _emptyGameList.setValue(true);
+          hideProgressBar();
+          _exceptionEvent.setValue(new Event<>(input.exception));
         }
-        return Result.Success(games);
-      } else {
-        hideProgressBar();
-        return Result.Error(input.exception);
       }
     });
+    result.addSource(_objectListResult, listResult -> {
+      if (listResult.succeeded()) {
+        result.setValue(listResult.data);
+      }
+    });
+
+    objectListResult = result;
 
     requestForGameList(gameListFilterType);
   }
@@ -164,9 +205,14 @@ public class GameListViewModel extends ViewModel {
   }
 
   void gameRemovedFromFavourites(int adapterPosition) {
-    List<Game> newGameList = new ArrayList<>(games);
+    List<Object> newGameList = new ArrayList<>(items);
     newGameList.remove(adapterPosition);
-    games.clear();
-    _gameListResult.setValue(Result.Success(newGameList));
+    items.clear();
+    _objectListResult.setValue(Result.Success(newGameList));
+  }
+
+  void setNativeAdList(List<UnifiedNativeAd> nativeAds) {
+    this.nativeAds.clear();
+    this.nativeAds.addAll(nativeAds);
   }
 }

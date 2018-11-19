@@ -25,7 +25,7 @@
       android:layout_marginTop="@dimen/default_space_small"
       android:foreground="?attr/selectableItemBackground"
       app:cardCornerRadius="@dimen/default_card_corner_radius"
-      app:cardElevation="@dimen/corner_radius_game_item_card"
+      app:cardElevation="@dimen/corner_radius_game_list_item_card"
       app:cardUseCompatPadding="false"
       tools:layoutDirection="ltr"
       >

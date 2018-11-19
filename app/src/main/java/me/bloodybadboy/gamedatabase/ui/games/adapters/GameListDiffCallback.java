@@ -5,10 +5,10 @@ import java.util.List;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 
 public class GameListDiffCallback extends DiffUtil.Callback {
-  private final List<Game> oldGameList;
-  private final List<Game> newGameList;
+  private final List<Object> oldGameList;
+  private final List<Object> newGameList;
 
-  GameListDiffCallback(List<Game> oldGameList, List<Game> newGameList) {
+  GameListDiffCallback(List<Object> oldGameList, List<Object> newGameList) {
     this.oldGameList = oldGameList;
     this.newGameList = newGameList;
   }
@@ -22,16 +22,22 @@ public class GameListDiffCallback extends DiffUtil.Callback {
   }
 
   @Override public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-    if (oldGameList.get(oldItemPosition) == null || newGameList.get(newItemPosition) == null) {
+
+    final Object oldGame = oldGameList.get(oldItemPosition);
+    final Object newGame = newGameList.get(newItemPosition);
+
+    if (oldGame == null || newGame == null) {
       return true;
     }
-    return oldGameList.get(oldItemPosition).getId() == newGameList.get(newItemPosition)
-        .getId();
+    if (oldGame instanceof Game && newGame instanceof Game) {
+      return ((Game) oldGame).getId() == ((Game) newGame).getId();
+    }
+    return oldGame.equals(newGame);
   }
 
   @Override public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-    final Game oldGame = oldGameList.get(oldItemPosition);
-    final Game newGame = newGameList.get(newItemPosition);
+    final Object oldGame = oldGameList.get(oldItemPosition);
+    final Object newGame = newGameList.get(newItemPosition);
     if (oldGame == null || newGame == null) {
       return true;
     }

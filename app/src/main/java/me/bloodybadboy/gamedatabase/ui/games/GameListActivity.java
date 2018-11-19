@@ -18,7 +18,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.snackbar.Snackbar;
+import java.util.ArrayList;
+import java.util.List;
 import me.bloodybadboy.gamedatabase.Constants.GameListFilterType;
 import me.bloodybadboy.gamedatabase.R;
 import me.bloodybadboy.gamedatabase.databinding.ActivityGameListBinding;
@@ -40,6 +48,7 @@ public class GameListActivity extends AppCompatActivity {
   public static final int REQUEST_CODE = 100;
   private static final int JOB_ID = 101;
   private static final long REFRESH_INTERVAL = 86400000; // 24 hrs
+  public static final int NUMBER_OF_ADS = 5;
 
   private ActivityGameListBinding binding;
   private GameListViewModel viewModel;
@@ -47,6 +56,9 @@ public class GameListActivity extends AppCompatActivity {
   private GamesAdapter gamesAdapter;
   private OnLoadMoreScrollListener onLoadMoreScrollListener;
   private boolean shouldSwapList;
+
+  private AdLoader adLoader;
+  private List<UnifiedNativeAd> nativeAds = new ArrayList<>();
 
   public static GameListViewModel obtainViewModel(FragmentActivity activity) {
     ViewModelFactory factory = ViewModelFactory.getInstance(Injection.provideAppScheduler(),
@@ -68,6 +80,63 @@ public class GameListActivity extends AppCompatActivity {
 
     gamesAdapter = new GamesAdapter(this);
 
+    MobileAds.initialize(this, getString(R.string.admob_app_id));
+
+    initRecycleView();
+    scheduleJob();
+
+    viewModel.objectListResult.observe(this, listResult -> {
+      if (onLoadMoreScrollListener.isLoading()) {
+        onLoadMoreScrollListener.notifyDataLoaded();
+      }
+
+      if (shouldSwapList) {
+        shouldSwapList = false;
+        binding.recyclerView.scheduleLayoutAnimation();
+        gamesAdapter.swapListItems(listResult);
+        binding.recyclerView.scrollToPosition(0);
+      } else {
+        gamesAdapter.updateListItems(listResult);
+      }
+    });
+
+    viewModel.exceptionEvent.observe(this, new EventObserver<>(e -> {
+      if (onLoadMoreScrollListener.isLoading()) {
+        onLoadMoreScrollListener.notifyDataLoaded();
+      }
+      viewModel.showRetrySnackBar(
+          NetworkUtil.isOnline() ? getString(R.string.error_msg_unexpected)
+              : getString(R.string.error_msg_no_internet));
+    }));
+
+    viewModel.listFilterType.observe(this, filterType -> gameListFilterType = filterType);
+
+    viewModel.swapGameList.observe(this, new EventObserver<>(swapList -> {
+      Timber.d("swapList: %s", swapList);
+      shouldSwapList = swapList;
+    }));
+
+    viewModel.gameListLoading.observe(this, isLoading -> {
+      if (isLoading) {
+        gamesAdapter.addLoadingItem();
+      } else {
+        gamesAdapter.removeLoadingItem();
+      }
+    });
+
+    viewModel.showRetrySnackBarEvent.observe(this, new EventObserver<>(this::showErrorSnackbar));
+
+    viewModel.loadMoreNativeAds.observe(this, new EventObserver<>(o -> {
+      nativeAds.clear();
+      loadNativeAds();
+    }));
+
+    if (savedInstanceState == null) {
+      loadNativeAds();
+    }
+  }
+
+  private void initRecycleView() {
     LinearLayoutManager linearLayoutManager =
         new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
 
@@ -85,49 +154,6 @@ public class GameListActivity extends AppCompatActivity {
     binding.recyclerView.setLayoutManager(linearLayoutManager);
     binding.recyclerView.setAdapter(gamesAdapter);
     binding.recyclerView.addOnScrollListener(onLoadMoreScrollListener);
-
-    scheduleJob();
-
-    viewModel.gameListResult.observe(this, listResult -> {
-      if (!listResult.loading()) {
-        if (onLoadMoreScrollListener.isLoading()) {
-          onLoadMoreScrollListener.notifyDataLoaded();
-        }
-
-        if (listResult.succeeded()) {
-          if (listResult.data.size() > 0) {
-            if (shouldSwapList) {
-              shouldSwapList = false;
-              binding.recyclerView.scheduleLayoutAnimation();
-              gamesAdapter.swapGameListItems(listResult.data);
-              binding.recyclerView.scrollToPosition(0);
-            } else {
-              gamesAdapter.updateGameListItems(listResult.data);
-            }
-          }
-        } else {
-          viewModel.showRetrySnackBar(
-              NetworkUtil.isOnline() ? getString(R.string.error_msg_unexpected)
-                  : getString(R.string.error_msg_no_internet));
-        }
-      }
-    });
-    viewModel.listFilterType.observe(this, filterType -> gameListFilterType = filterType);
-
-    viewModel.swapGameList.observe(this, new EventObserver<>(swapList -> {
-      Timber.d("swapList: %s", swapList);
-      shouldSwapList = swapList;
-    }));
-
-    viewModel.gameListLoading.observe(this, isLoading -> {
-      if (isLoading) {
-        gamesAdapter.addLoadingItem();
-      } else {
-        gamesAdapter.removeLoadingItem();
-      }
-    });
-
-    viewModel.showRetrySnackBarEvent.observe(this, new EventObserver<>(this::showErrorSnackbar));
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -241,5 +267,29 @@ public class GameListActivity extends AppCompatActivity {
         viewModel.gameRemovedFromFavourites(adapterPosition);
       }
     }
+  }
+
+  private void loadNativeAds() {
+
+    AdLoader.Builder builder = new AdLoader.Builder(this, getString(R.string.native_ad_unit_id));
+    adLoader = builder.forUnifiedNativeAd(
+        unifiedNativeAd -> {
+          nativeAds.add(unifiedNativeAd);
+          if (!adLoader.isLoading()) {
+            viewModel.setNativeAdList(nativeAds);
+          }
+          Timber.d("A native ad loaded successfully. Still loading: %s", adLoader.isLoading());
+        }).withAdListener(new AdListener() {
+      @Override
+      public void onAdFailedToLoad(int errorCode) {
+        Timber.e("The previous native ad failed to load. Attempting to load another.");
+        if (!adLoader.isLoading()) {
+          viewModel.setNativeAdList(nativeAds);
+        }
+      }
+    }).build();
+
+    // Load the Native ads.
+    adLoader.loadAds(new AdRequest.Builder().build(), NUMBER_OF_ADS);
   }
 }

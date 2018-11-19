@@ -10,6 +10,7 @@
   <color name="grey_600">#747474</color>
   <color name="spacer_grey">#e0e0e0</color>
   <color name="white_90">#e6ffffff</color>
+  <color name="orange_300">#ffb74d</color>
 
   <color name="color_primary">@color/indigo</color>
   <color name="color_primary_dark">@color/indigo_dark</color>

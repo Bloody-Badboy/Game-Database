@@ -2,7 +2,7 @@
 
   <!-- All Defaults -->
   <dimen name="default_space_none">0dp</dimen>
-  <!--<dimen name="default_space_micro">2dp</dimen>-->
+  <dimen name="default_space_micro">2dp</dimen>
   <dimen name="default_space_tiny">4dp</dimen>
   <dimen name="default_space_small">8dp</dimen>
   <dimen name="default_space_medium_small">12dp</dimen>
@@ -31,7 +31,13 @@
 
   <!-- Game List -->
   <dimen name="height_game_list_item">180dp</dimen>
-  <dimen name="corner_radius_game_item_card">2dp</dimen>
+  <dimen name="corner_radius_game_list_item_card">2dp</dimen>
+  <dimen name="size_game_list_item_ad_icon">64dp</dimen>
+  <dimen name="textsize_game_list_item_ad_headline">16sp</dimen>
+  <dimen name="textsize_game_list_item_ad_advertiser">12sp</dimen>
+  <dimen name="textsize_game_list_item_ad_body">12sp</dimen>
+  <dimen name="height_game_list_item_ad_action_button">32dp</dimen>
+  <dimen name="textsize_game_list_item_ad_attribution">12sp</dimen>
 
    <!-- Game Detail-->
   <dimen name="height_game_detail_app_bar">240dp</dimen>

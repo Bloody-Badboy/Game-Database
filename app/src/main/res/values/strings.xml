@@ -1,6 +1,9 @@
 <resources>
   <string name="app_name">Game Database</string>
 
+  <!-- AdMob App Id-->
+  <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+  <string name="native_ad_unit_id">ca-app-pub-3940256099942544/2247696110</string>
 
   <!-- Esrb Ratings-->
   <string name="esrb_rating_pending">Rating Pending</string>
@@ -73,5 +76,7 @@
 
   <!--Photo View -->
   <string name="photo_view_msg_missing_extra">Required data missing!</string>
+  <string name="a11y_advertisement_icon">Advertisement Icon</string>
+  <string name="game_list_ad">Ad</string>
 
 </resources>
