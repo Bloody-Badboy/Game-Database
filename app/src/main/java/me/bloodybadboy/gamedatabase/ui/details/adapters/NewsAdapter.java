@@ -19,11 +19,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> im
     BindableAdapter<List<Pulse>> {
 
   private final List<Pulse> pulses = new ArrayList<>();
-  private Context context;
 
   @NonNull @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    context = parent.getContext();
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     return new ViewHolder(
         DataBindingUtil.inflate(inflater, R.layout.list_item_news_layout, parent, false));
