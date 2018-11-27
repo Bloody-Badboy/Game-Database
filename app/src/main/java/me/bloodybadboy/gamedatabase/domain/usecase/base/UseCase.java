@@ -8,7 +8,7 @@ public abstract class UseCase<T> {
   private final Scheduler scheduler;
   private OnResponseListener<T> listener;
 
-  public UseCase(
+  protected UseCase(
       Scheduler scheduler) {
     this.scheduler = scheduler;
   }

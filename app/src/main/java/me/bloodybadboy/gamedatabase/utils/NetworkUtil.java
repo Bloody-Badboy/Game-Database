@@ -3,7 +3,7 @@ package me.bloodybadboy.gamedatabase.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import me.bloodybadboy.gamedatabase.injection.Injection;
+import me.bloodybadboy.gamedatabase.GameDatabaseApplication;
 
 public final class NetworkUtil {
 
@@ -14,7 +14,7 @@ public final class NetworkUtil {
   public static boolean isOnline() {
 
     ConnectivityManager connectivityManager =
-        (ConnectivityManager) Injection.provideApplicationContext()
+        (ConnectivityManager) GameDatabaseApplication.getInstance()
             .getSystemService(Context.CONNECTIVITY_SERVICE);
 
     if (connectivityManager != null) {

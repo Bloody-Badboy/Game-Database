@@ -1,12 +1,13 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
 import java.util.Calendar;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.utils.scheduler.Scheduler;
 
 public final class GetComingSoonGameListUseCase extends AbstractGetGameListUseCase {
 
-  public GetComingSoonGameListUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject GetComingSoonGameListUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler, repository);
   }
 

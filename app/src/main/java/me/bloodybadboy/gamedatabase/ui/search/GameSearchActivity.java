@@ -9,44 +9,40 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.android.support.DaggerAppCompatActivity;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.R;
 import me.bloodybadboy.gamedatabase.databinding.ActivityGameSearchBinding;
-import me.bloodybadboy.gamedatabase.injection.Injection;
-import me.bloodybadboy.gamedatabase.ui.ViewModelFactory;
 import me.bloodybadboy.gamedatabase.ui.search.adapter.GamesSearchAdapter;
 import me.bloodybadboy.gamedatabase.utils.NetworkUtil;
 import me.bloodybadboy.gamedatabase.utils.TextWatcherAdapter;
 import me.bloodybadboy.gamedatabase.utils.event.EventObserver;
 
-public class GameSearchActivity extends AppCompatActivity
+public class GameSearchActivity extends DaggerAppCompatActivity
     implements EditText.OnEditorActionListener {
 
+  @Inject
+  ViewModelProvider.Factory viewModelFactory;
   private int WAITING_TIME = 300;
-
   private ActivityGameSearchBinding binding;
   private GameSearchViewModel viewModel;
   private Handler handler = new Handler();
   private GamesSearchAdapter adapter;
 
-  public static GameSearchViewModel obtainViewModel(FragmentActivity activity) {
-    ViewModelFactory factory = ViewModelFactory.getInstance(Injection.provideAppScheduler(),
-        Injection.provideDataRepository());
-    return ViewModelProviders.of(activity, factory).get(GameSearchViewModel.class);
-  }
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    //AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this, R.layout.activity_game_search);
-    viewModel = obtainViewModel(this);
+    //viewModel = obtainViewModel(this);
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(GameSearchViewModel.class);
 
     binding.setLifecycleOwner(this);
     binding.setViewModel(viewModel);

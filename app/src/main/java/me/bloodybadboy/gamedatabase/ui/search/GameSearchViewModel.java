@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.domain.usecase.SearchGameUseCase;
 import me.bloodybadboy.gamedatabase.result.Result;
@@ -27,7 +28,7 @@ public class GameSearchViewModel extends ViewModel {
 
   private SearchGameUseCase searchGameUseCase;
 
-  public GameSearchViewModel(
+  @Inject GameSearchViewModel(
       SearchGameUseCase searchGameUseCase
   ) {
     this.searchGameUseCase = searchGameUseCase;

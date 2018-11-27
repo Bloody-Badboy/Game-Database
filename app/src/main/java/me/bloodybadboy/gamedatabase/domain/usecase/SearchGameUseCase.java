@@ -1,6 +1,7 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.data.source.remote.api.IGDBParameters;
@@ -18,7 +19,7 @@ public final class SearchGameUseCase extends LiveDataUseCase<List<Game>> {
   private final GameDataRepository repository;
   private final IGDBParameters parameters = new IGDBParameters();
 
-  public SearchGameUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject SearchGameUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
 

@@ -1,11 +1,12 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.utils.scheduler.Scheduler;
 
 public final class GetTopRatedGameListUseCase extends AbstractGetGameListUseCase {
 
-  public GetTopRatedGameListUseCase(Scheduler scheduler,
+  @Inject GetTopRatedGameListUseCase(Scheduler scheduler,
       GameDataRepository repository) {
     super(scheduler, repository);
   }

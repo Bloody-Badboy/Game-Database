@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.Constants;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.model.Image;
@@ -58,6 +59,7 @@ public class GameDetailsViewModel extends ViewModel {
   private List<Pulse> offlinePulses = new ArrayList<>();
   private boolean isGameInFavourite;
 
+  @Inject
   public GameDetailsViewModel(
       GetGameDetailsUseCase getGameDetailsUseCase,
       GetGameNewsByTagUseCase getGameNewsByTagUseCase,

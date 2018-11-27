@@ -13,7 +13,7 @@ import me.bloodybadboy.gamedatabase.databinding.ListItemUnifiedNativeAdBinding;
 public class UnifiedNativeAdItemViewHolder extends RecyclerView.ViewHolder {
   public ListItemUnifiedNativeAdBinding binding;
 
- public UnifiedNativeAdItemViewHolder(ListItemUnifiedNativeAdBinding binding) {
+  public UnifiedNativeAdItemViewHolder(ListItemUnifiedNativeAdBinding binding) {
     super(binding.getRoot());
     this.binding = binding;
 

@@ -9,12 +9,13 @@ import android.widget.RemoteViewsService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import dagger.android.AndroidInjection;
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.R;
 import me.bloodybadboy.gamedatabase.data.model.Image;
 import me.bloodybadboy.gamedatabase.data.model.Pulse;
 import me.bloodybadboy.gamedatabase.domain.usecase.GetFavouriteGamesNewsUseCase;
-import me.bloodybadboy.gamedatabase.injection.Injection;
 import me.bloodybadboy.gamedatabase.utils.DateUtil;
 import timber.log.Timber;
 
@@ -23,13 +24,19 @@ import static me.bloodybadboy.gamedatabase.Constants.IMAGE_URL_FORMAT;
 
 public class GameNewsWidgetService extends RemoteViewsService {
 
+  @Inject
+  public Context applicationContext;
+
+  @Inject
+  public GetFavouriteGamesNewsUseCase getFavouriteGamesNewsUseCase;
+
+  @Override public void onCreate() {
+    AndroidInjection.inject(this);
+    super.onCreate();
+  }
+
   @Override public RemoteViewsFactory onGetViewFactory(Intent intent) {
-    return new NewsListRemoteViewsFactory(
-        Injection.provideApplicationContext(),
-        new GetFavouriteGamesNewsUseCase(
-            Injection.provideAppScheduler(),
-            Injection.provideDataRepository()
-        ));
+    return new NewsListRemoteViewsFactory(applicationContext, getFavouriteGamesNewsUseCase);
   }
 
   public static class NewsListRemoteViewsFactory

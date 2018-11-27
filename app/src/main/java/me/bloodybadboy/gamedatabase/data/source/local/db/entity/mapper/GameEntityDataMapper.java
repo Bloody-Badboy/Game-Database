@@ -12,7 +12,6 @@ import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.model.Image;
 import me.bloodybadboy.gamedatabase.data.model.Theme;
 import me.bloodybadboy.gamedatabase.data.source.local.db.entity.GameEntity;
-import me.bloodybadboy.gamedatabase.injection.Injection;
 import timber.log.Timber;
 
 public class GameEntityDataMapper {
@@ -20,11 +19,11 @@ public class GameEntityDataMapper {
   private final JsonAdapter<List<Theme>> themesJsonAdapter;
 
   public GameEntityDataMapper() {
-    Moshi moshi = Injection.provideMoshi();
-    themesJsonAdapter = moshi.adapter(Types.newParameterizedType(List.class, Theme.class));
+    themesJsonAdapter =
+        new Moshi.Builder().build().adapter(Types.newParameterizedType(List.class, Theme.class));
   }
 
-  public Game transform(GameEntity gameEntity) {
+  private Game transform(GameEntity gameEntity) {
     Game game = null;
     if (gameEntity != null) {
       game = new Game();

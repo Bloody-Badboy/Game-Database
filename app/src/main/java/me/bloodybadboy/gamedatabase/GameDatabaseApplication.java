@@ -1,12 +1,14 @@
 package me.bloodybadboy.gamedatabase;
 
-import android.app.Application;
 import androidx.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
+import me.bloodybadboy.gamedatabase.di.DaggerAppComponent;
 import timber.log.Timber;
 
-public class GameDatabaseApplication extends Application {
+public class GameDatabaseApplication extends DaggerApplication {
 
   private static GameDatabaseApplication sInstance;
 
@@ -42,5 +44,9 @@ public class GameDatabaseApplication extends Application {
             + element.getLineNumber();
       }
     });
+  }
+
+  @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+    return DaggerAppComponent.builder().create(this);
   }
 }

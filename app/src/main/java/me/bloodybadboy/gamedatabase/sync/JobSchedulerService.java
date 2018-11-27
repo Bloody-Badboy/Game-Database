@@ -2,28 +2,26 @@ package me.bloodybadboy.gamedatabase.sync;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
-import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
+import dagger.android.AndroidInjection;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.source.remote.api.IGDBParameters;
 import me.bloodybadboy.gamedatabase.domain.usecase.GetFavouriteGamesNewsUseCase;
 import me.bloodybadboy.gamedatabase.domain.usecase.UpdateNewsDatabaseUseCase;
-import me.bloodybadboy.gamedatabase.injection.Injection;
-import me.bloodybadboy.gamedatabase.utils.scheduler.Scheduler;
 import timber.log.Timber;
 
 public class JobSchedulerService extends JobService {
 
   private final IGDBParameters parameters = new IGDBParameters();
 
-  private GetFavouriteGamesNewsUseCase favouriteGamesNewsUseCase;
-  private UpdateNewsDatabaseUseCase updateNewsDatabaseUseCase;
+  @Inject
+  public GetFavouriteGamesNewsUseCase favouriteGamesNewsUseCase;
+
+  @Inject
+  public UpdateNewsDatabaseUseCase updateNewsDatabaseUseCase;
 
   @Override public void onCreate() {
+    AndroidInjection.inject(this);
     super.onCreate();
-    GameDataRepository repository = Injection.provideDataRepository();
-    Scheduler scheduler = Injection.provideAppScheduler();
-
-    favouriteGamesNewsUseCase = new GetFavouriteGamesNewsUseCase(scheduler, repository);
-    updateNewsDatabaseUseCase = new UpdateNewsDatabaseUseCase(scheduler, repository);
 
     parameters.addField("title")
         .addField("published_at")

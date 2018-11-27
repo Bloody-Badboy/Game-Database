@@ -1,6 +1,7 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.data.source.GameDataSource;
@@ -17,7 +18,7 @@ public final class GetGameDetailsUseCase extends LiveDataUseCase<Game> {
   private final IGDBParameters parameters = new IGDBParameters();
   private long gameId;
 
-  public GetGameDetailsUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject GetGameDetailsUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
 

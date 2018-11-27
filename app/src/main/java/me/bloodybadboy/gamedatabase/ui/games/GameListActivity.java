@@ -11,10 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,17 +21,17 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.Constants.GameListFilterType;
 import me.bloodybadboy.gamedatabase.R;
 import me.bloodybadboy.gamedatabase.databinding.ActivityGameListBinding;
-import me.bloodybadboy.gamedatabase.injection.Injection;
 import me.bloodybadboy.gamedatabase.sync.JobSchedulerService;
-import me.bloodybadboy.gamedatabase.ui.ViewModelFactory;
 import me.bloodybadboy.gamedatabase.ui.details.GameDetailsActivity;
 import me.bloodybadboy.gamedatabase.ui.games.adapters.GamesAdapter;
 import me.bloodybadboy.gamedatabase.ui.search.GameSearchActivity;
@@ -43,35 +42,30 @@ import timber.log.Timber;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static me.bloodybadboy.gamedatabase.Constants.GameListFilterType.FAVOURITES;
 
-public class GameListActivity extends AppCompatActivity {
+public class GameListActivity extends DaggerAppCompatActivity {
 
   public static final int REQUEST_CODE = 100;
+  public static final int NUMBER_OF_ADS = 5;
   private static final int JOB_ID = 101;
   private static final long REFRESH_INTERVAL = 86400000; // 24 hrs
-  public static final int NUMBER_OF_ADS = 5;
-
+  @Inject
+  ViewModelProvider.Factory viewModelFactory;
   private ActivityGameListBinding binding;
   private GameListViewModel viewModel;
   private GameListFilterType gameListFilterType;
   private GamesAdapter gamesAdapter;
   private OnLoadMoreScrollListener onLoadMoreScrollListener;
   private boolean shouldSwapList;
-
   private AdLoader adLoader;
   private List<UnifiedNativeAd> nativeAds = new ArrayList<>();
 
-  public static GameListViewModel obtainViewModel(FragmentActivity activity) {
-    ViewModelFactory factory = ViewModelFactory.getInstance(Injection.provideAppScheduler(),
-        Injection.provideDataRepository());
-    return ViewModelProviders.of(activity, factory).get(GameListViewModel.class);
-  }
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this, R.layout.activity_game_list);
 
-    viewModel = obtainViewModel(this);
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(GameListViewModel.class);
 
     binding.setViewModel(viewModel);
     binding.setLifecycleOwner(this);

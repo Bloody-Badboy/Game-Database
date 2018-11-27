@@ -1,5 +1,6 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.domain.usecase.base.LiveDataUseCase;
@@ -8,10 +9,10 @@ import me.bloodybadboy.gamedatabase.utils.scheduler.Scheduler;
 
 public final class AddGameToFavouritesUseCase extends LiveDataUseCase<Void> {
 
-  private GameDataRepository repository;
+  private final GameDataRepository repository;
   private Game game;
 
-  public AddGameToFavouritesUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject AddGameToFavouritesUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
   }

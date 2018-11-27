@@ -15,23 +15,23 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import com.github.rubensousa.gravitysnaphelper.GravityPagerSnapHelper;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.R;
 import me.bloodybadboy.gamedatabase.data.model.Game;
 import me.bloodybadboy.gamedatabase.data.model.Image;
 import me.bloodybadboy.gamedatabase.databinding.ActivityGameDetailsBinding;
-import me.bloodybadboy.gamedatabase.injection.Injection;
-import me.bloodybadboy.gamedatabase.ui.ViewModelFactory;
 import me.bloodybadboy.gamedatabase.ui.details.adapters.ImagesAdapter;
 import me.bloodybadboy.gamedatabase.ui.details.adapters.NewsAdapter;
 import me.bloodybadboy.gamedatabase.ui.details.adapters.VideosAdapter;
@@ -40,7 +40,7 @@ import me.bloodybadboy.gamedatabase.utils.event.EventObserver;
 
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 
-public class GameDetailsActivity extends AppCompatActivity {
+public class GameDetailsActivity extends DaggerAppCompatActivity {
 
   public static final String EXTRA_GAME_ID = "game_id";
   public static final String EXTRA_GAME_NAME = "game_name";
@@ -51,7 +51,8 @@ public class GameDetailsActivity extends AppCompatActivity {
   private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR =
       new AccelerateInterpolator();
   private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
-
+  @Inject
+  ViewModelProvider.Factory viewModelFactory;
   private ActivityGameDetailsBinding binding;
   private GameDetailsViewModel viewModel;
   private Game game;
@@ -61,17 +62,12 @@ public class GameDetailsActivity extends AppCompatActivity {
   private int adapterPosition = NO_POSITION;
   private boolean isGameInFavourite;
 
-  public GameDetailsViewModel obtainViewModel(FragmentActivity activity) {
-    ViewModelFactory factory = ViewModelFactory.getInstance(Injection.provideAppScheduler(),
-        Injection.provideDataRepository());
-    return ViewModelProviders.of(activity, factory).get(GameDetailsViewModel.class);
-  }
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    AndroidInjection.inject(this);
     binding = DataBindingUtil.setContentView(this, R.layout.activity_game_details);
-    viewModel = obtainViewModel(this);
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(GameDetailsViewModel.class);
 
     binding.setViewModel(viewModel);
     binding.setLifecycleOwner(this);

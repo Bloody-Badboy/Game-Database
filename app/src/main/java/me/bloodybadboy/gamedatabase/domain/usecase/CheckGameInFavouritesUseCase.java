@@ -1,5 +1,7 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
+import javax.inject.Inject;
+import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.data.source.GameDataSource;
 import me.bloodybadboy.gamedatabase.domain.usecase.base.LiveDataUseCase;
 import me.bloodybadboy.gamedatabase.result.Result;
@@ -9,8 +11,8 @@ public final class CheckGameInFavouritesUseCase extends LiveDataUseCase<Boolean>
   private final GameDataSource repository;
   private long gameId;
 
-  public CheckGameInFavouritesUseCase(Scheduler scheduler,
-      GameDataSource repository) {
+  @Inject CheckGameInFavouritesUseCase(Scheduler scheduler,
+      GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
   }

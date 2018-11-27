@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.Constants;
 import me.bloodybadboy.gamedatabase.Constants.GameListFilterType;
 import me.bloodybadboy.gamedatabase.data.model.Game;
@@ -45,20 +46,18 @@ public class GameListViewModel extends ViewModel {
 
   private final List<Object> items = new ArrayList<>();
   private final List<UnifiedNativeAd> nativeAds = new ArrayList<>();
-
-  private AbstractGetGameListUseCase currentGameListUseCase;
   private final GetPopularGameListUseCase popularGameListUseCase;
   private final GetTopRatedGameListUseCase topRatedGameListUseCase;
   private final GetComingSoonGameListUseCase comingSoonGameListUseCase;
   private final GetFavouriteGameListUseCase favouriteGameListUseCase;
-
+  private AbstractGetGameListUseCase currentGameListUseCase;
   private GameListFilterType gameListFilterType = GameListFilterType.POPULARITY;
   private boolean isFilterTypeChanged;
   private int paginationOffset = 0;
   private boolean isProgressBarShown;
   private int currentNativeAdIndex = 0;
 
-  public GameListViewModel(
+  @Inject GameListViewModel(
       GetPopularGameListUseCase popularGameListUseCase,
       GetTopRatedGameListUseCase topRatedGameListUseCase,
       GetComingSoonGameListUseCase comingSoonGameListUseCase,

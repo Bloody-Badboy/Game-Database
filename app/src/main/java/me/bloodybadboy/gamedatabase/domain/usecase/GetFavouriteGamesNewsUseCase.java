@@ -2,6 +2,7 @@ package me.bloodybadboy.gamedatabase.domain.usecase;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Pulse;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.data.source.GameDataSource;
@@ -20,7 +21,7 @@ public class GetFavouriteGamesNewsUseCase extends UseCase<List<Pulse>> {
   private final List<Pulse> pulseList = new ArrayList<>();
   private boolean fromDatabase;
 
-  public GetFavouriteGamesNewsUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject public GetFavouriteGamesNewsUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
 

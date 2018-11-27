@@ -1,6 +1,7 @@
 package me.bloodybadboy.gamedatabase.domain.usecase;
 
 import java.util.List;
+import javax.inject.Inject;
 import me.bloodybadboy.gamedatabase.data.model.Pulse;
 import me.bloodybadboy.gamedatabase.data.source.GameDataRepository;
 import me.bloodybadboy.gamedatabase.domain.usecase.base.UseCase;
@@ -9,10 +10,10 @@ import me.bloodybadboy.gamedatabase.utils.scheduler.Scheduler;
 
 public class AddNewsToDatabaseUseCase extends UseCase<Object> {
 
-  private GameDataRepository repository;
+  private final GameDataRepository repository;
   private List<Pulse> pulseList;
 
-  public AddNewsToDatabaseUseCase(Scheduler scheduler, GameDataRepository repository) {
+  @Inject AddNewsToDatabaseUseCase(Scheduler scheduler, GameDataRepository repository) {
     super(scheduler);
     this.repository = repository;
   }
